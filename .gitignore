@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+src/attack_logs.txt
+*.db
+__pycache__/
