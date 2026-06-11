@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SSH Honeypot Dashboard</title>
+</head>
+
+<body>
+
+    <h1>SSH Honeypot Dashboard</h1>
+
+    <h2>Total Attacks: {{ total_attacks }}</h2>
+
+    <h2>Recent Attacks</h2>
+
+    <table border="1">
+        <tr>
+            <th>Time</th>
+            <th>IP</th>
+            <th>Username</th>
+            <th>Password</th>
+        </tr>
+
+        {% for attack in attacks %}
+        <tr>
+            <td>{{ attack[0] }}</td>
+            <td>{{ attack[1] }}</td>
+            <td>{{ attack[2] }}</td>
+            <td>{{ attack[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Top Usernames</h2>
+
+    <ul>
+        {% for user in top_usernames %}
+        <li>{{ user[0] }} ({{ user[1] }})</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Top Passwords</h2>
+
+    <ul>
+        {% for password in top_passwords %}
+        <li>{{ password[0] }} ({{ password[1] }})</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
