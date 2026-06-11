@@ -2,16 +2,21 @@
 
 ## Project Overview
 
-This project aims to develop a medium-interaction SSH honeypot system for collecting and analyzing attack attempts.
+This project aims to design and implement a medium-interaction SSH honeypot system for collecting, logging, and analyzing SSH-based attack attempts.
 
-Features:
+The system will simulate an SSH service, record login attempts, analyze attacker behavior, and visualize attack data using a dashboard and GeoIP mapping.
+
+## Planned Features
 
 - SSH login simulation
-- Attack logging
-- Dashboard visualization
-- GeoIP mapping
-- Docker isolation
+- Username and password logging
+- Fake shell environment
+- Command logging
+- SQLite database integration
+- Dashboard-based attack analysis
+- GeoIP-based world map visualization
+- Docker-based isolation
 
-## Status
+## Project Status
 
-Project initialization phase.
+This project is currently in the initialization phase.
