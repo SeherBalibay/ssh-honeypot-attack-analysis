@@ -221,3 +221,12 @@ __marimo__/
 src/attack_logs.txt
 *.db
 __pycache__/
+
+
+database/*.db
+src/attack_logs.txt
+
+__pycache__/
+*.pyc
+
+.vscode/

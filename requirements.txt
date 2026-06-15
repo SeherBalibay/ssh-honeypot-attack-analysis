@@ -1,0 +1,6 @@
+flask
+requests
+plotly
+pandas
+geoip2
+
