@@ -1,5 +1,7 @@
 from flask import Flask, render_template
 import sqlite3
+import plotly.express as px
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -58,7 +60,31 @@ def dashboard():
     """)
     top_commands = cursor.fetchall()
 
+    cursor.execute("""
+        SELECT country, COUNT(*)
+        FROM attacks
+        WHERE country IS NOT NULL
+        GROUP BY country
+    """)
+    country_data = cursor.fetchall()
+
     connection.close()
+
+    map_html = ""
+
+    if country_data:
+        df = pd.DataFrame(country_data, columns=["country", "count"])
+
+        fig = px.choropleth(
+            df,
+            locations="country",
+            locationmode="country names",
+            color="count",
+            hover_name="country",
+            title="Attack Sources by Country"
+        )
+
+        map_html = fig.to_html(full_html=False)
 
     return render_template(
         "index.html",
@@ -67,7 +93,8 @@ def dashboard():
         top_usernames=top_usernames,
         top_passwords=top_passwords,
         top_countries=top_countries,
-        top_commands=top_commands
+        top_commands=top_commands,
+        map_html=map_html
     )
 
 
