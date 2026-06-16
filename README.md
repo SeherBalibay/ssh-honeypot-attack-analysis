@@ -87,6 +87,24 @@ http://127.0.0.1:5000
 
 ## Dashboard Capabilities
 
+## Screenshots
+
+### Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+### World Attack Map
+
+![World Map](screenshots/world-map.png)
+
+### Fake Shell
+
+![Fake Shell](screenshots/fake-shell.png)
+
+### Command Logging
+
+![Command Logging](screenshots/command-logging.png)
+
 The dashboard provides:
 
 * Recent attack logs
@@ -96,6 +114,24 @@ The dashboard provides:
 * Top executed commands
 * GeoIP attack visualization
 * World attack map
+
+## Screenshots
+
+### Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+### World Attack Map
+
+![World Map](screenshots/world-map.png)
+
+### Fake Shell
+
+![Fake Shell](screenshots/fake-shell.png)
+
+### Command Logging
+
+![Command Logging](screenshots/command-logging.png)
 
 ## Educational Purpose
 
