@@ -41,7 +41,7 @@ The main objectives of this project are:
 ## Project Structure
 
 ```text
-design-and-implementation-of-an-ssh-honeypot-for-attack-analysis
+ssh-honeypot-attack-analysis
 │
 ├── dashboard
 ├── database
@@ -58,3 +58,129 @@ design-and-implementation-of-an-ssh-honeypot-for-attack-analysis
 ├── README.md
 └── LICENSE
 ```
+
+---
+
+## Technologies Used
+
+* Python
+* Flask
+* SQLite
+* Plotly
+* Pandas
+* Requests
+* GeoIP2
+* Docker
+
+---
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/SeherBalibay/ssh-honeypot-attack-analysis.git
+cd ssh-honeypot-attack-analysis
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run the honeypot:
+
+```bash
+cd src
+python honeypot.py
+```
+
+Run the dashboard:
+
+```bash
+cd dashboard
+python app.py
+```
+
+Open the dashboard:
+
+```text
+http://127.0.0.1:5000
+```
+
+---
+
+## Dashboard Capabilities
+
+The dashboard provides:
+
+* Recent attack logs
+* Top usernames
+* Top passwords
+* Top countries
+* Most frequently executed commands
+* GeoIP-based attack visualization
+* World attack map
+
+---
+
+## Screenshots
+
+### Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+### World Attack Map
+
+![World Map](screenshots/world-map.png)
+
+### Fake Shell
+
+![Fake Shell](screenshots/fake-shell.png)
+
+### Command Logging
+
+![Command Logging](screenshots/command-logging.png)
+
+---
+
+## Educational Purpose
+
+This project was developed for academic and cybersecurity research purposes. The collected data is intended for attack analysis, security awareness, and threat intelligence studies in controlled environments.
+
+---
+
+## Future Improvements
+
+* Public Cloud Deployment
+* Real-World Attack Collection
+* Advanced SSH Service Emulation
+* High-Interaction Honeypot Environment
+* Threat Intelligence Feed Integration
+* Automated Alert and Reporting System
+* Machine Learning-Based Attack Classification
+
+---
+
+## Literature Review
+
+The theoretical background and literature review used in this project are documented in:
+
+```text
+research/literature-review.md
+```
+
+The literature review covers honeypot technologies, SSH attack analysis, threat intelligence concepts, and related academic studies.
+
+---
+
+## Author
+
+Seher Balibay
+
+---
+
+## License
+
+MIT License
