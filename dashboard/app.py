@@ -65,75 +65,98 @@ def dashboard():
         SELECT country, COUNT(*)
         FROM attacks
         WHERE country IS NOT NULL
+          AND country != 'Localhost'
+          AND country != 'None'
+          AND country != ''
         GROUP BY country
     """)
     country_data = cursor.fetchall()
 
     connection.close()
 
+    map_html = """
+    <div style="color:#94a3b8; text-align:center; padding:80px;">
+        No public country data available yet.
+    </div>
+    """
+
     if country_data:
         df = pd.DataFrame(country_data, columns=["country", "count"])
 
-        fig = px.choropleth(
-            df,
-            locations="country",
-            locationmode="country names",
-            color="count",
-            hover_name="country",
-            hover_data={"count": True},
-            color_continuous_scale="Reds",
-            projection="orthographic",
-            title="Global SSH Attack Distribution"
-        )
+        country_iso = {
+            "Turkey": "TUR",
+            "Russia": "RUS",
+            "China": "CHN",
+            "United States": "USA",
+            "Germany": "DEU",
+            "France": "FRA",
+            "Brazil": "BRA",
+            "United Kingdom": "GBR",
+            "Netherlands": "NLD",
+            "India": "IND",
+            "Japan": "JPN",
+            "Canada": "CAN",
+            "Italy": "ITA",
+            "Spain": "ESP"
+        }
 
-        fig.update_geos(
-            showframe=False,
-            showcoastlines=True,
-            coastlinecolor="#94a3b8",
-            showland=True,
-            landcolor="#1e293b",
-            showocean=True,
-            oceancolor="#020617",
-            showlakes=True,
-            lakecolor="#020617",
-            bgcolor="#020617",
-            projection_rotation=dict(lon=25, lat=10, roll=0)
-        )
+        df["iso"] = df["country"].map(country_iso)
+        df = df.dropna(subset=["iso"])
 
-        fig.update_layout(
-            paper_bgcolor="#020617",
-            plot_bgcolor="#020617",
-            font=dict(color="#e5e7eb"),
-            title=dict(
-                text="Global SSH Attack Distribution",
-                x=0.5,
-                font=dict(size=22, color="#ffffff")
-            ),
-            margin=dict(l=0, r=0, t=55, b=0),
-            height=520,
-            coloraxis_colorbar=dict(
-                title="Attacks",
-                tickcolor="#e5e7eb",
-                tickfont=dict(color="#e5e7eb"),
-                titlefont=dict(color="#e5e7eb")
+        if not df.empty:
+            fig = px.choropleth(
+                df,
+                locations="iso",
+                color="count",
+                hover_name="country",
+                hover_data={"count": True, "iso": False},
+                color_continuous_scale="Reds",
+                title="Global SSH Attack Distribution"
             )
-        )
 
-        map_html = fig.to_html(
-            full_html=False,
-            include_plotlyjs="cdn",
-            config={
-                "displayModeBar": False,
-                "responsive": True
-            }
-        )
+            fig.update_geos(
+                projection_type="natural earth",
+                showframe=False,
+                showcoastlines=True,
+                coastlinecolor="#94a3b8",
+                showland=True,
+                landcolor="#1e293b",
+                showocean=True,
+                oceancolor="#020617",
+                showlakes=True,
+                lakecolor="#020617",
+                showcountries=True,
+                countrycolor="#94a3b8",
+                bgcolor="#020617"
+            )
 
-    else:
-        map_html = """
-        <div style="color:#94a3b8; text-align:center; padding:80px;">
-            No country data available yet.
-        </div>
-        """
+            fig.update_layout(
+                paper_bgcolor="#020617",
+                plot_bgcolor="#020617",
+                font=dict(color="#e5e7eb"),
+                title=dict(
+                    text="Global SSH Attack Distribution",
+                    x=0.5,
+                    font=dict(size=22, color="#ffffff")
+                ),
+                margin=dict(l=0, r=0, t=55, b=0),
+                height=520,
+                coloraxis_colorbar=dict(
+                    title="Attacks",
+                    tickcolor="#e5e7eb",
+                    tickfont=dict(color="#e5e7eb"),
+                    titlefont=dict(color="#e5e7eb")
+                )
+            )
+
+            map_html = fig.to_html(
+                full_html=False,
+                include_plotlyjs="cdn",
+                config={
+                    "displayModeBar": False,
+                    "responsive": True
+                }
+            )
 
     return render_template(
         "index.html",
