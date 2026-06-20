@@ -4,7 +4,7 @@
 
 This project presents the design and implementation of a medium-interaction SSH honeypot developed for cybersecurity research, attack monitoring, and behavioral analysis. The system simulates an SSH service, records attacker activities, and provides a web-based dashboard for attack visualization and analysis.
 
-The proposed platform captures authentication attempts, monitors post-authentication attacker behavior, identifies attack origins using GeoIP technologies, and stores collected information in a SQLite database. The recorded data are presented through an interactive Flask-based dashboard to support threat intelligence and cybersecurity education.
+The proposed platform captures authentication attempts, simulates post-login attacker interactions, identifies attack origins using GeoIP technologies, and stores collected information in a SQLite database.
 
 ---
 
@@ -35,7 +35,7 @@ The main objectives of this project are:
 * Top Countries Analytics
 * World Map Visualization
 * Docker Deployment Support
-
+* Recent Attack Log Monitoring
 ---
 
 ## Project Structure
@@ -68,7 +68,6 @@ ssh-honeypot-attack-analysis
 * SQLite
 * Plotly
 * Pandas
-* Requests
 * GeoIP2
 * Docker
 
@@ -156,7 +155,7 @@ This project was developed for academic and cybersecurity research purposes. The
 * Public Cloud Deployment
 * Real-World Attack Collection
 * Advanced SSH Service Emulation
-* High-Interaction Honeypot Environment
+* Enhanced Medium-Interaction Shell Environment
 * Threat Intelligence Feed Integration
 * Automated Alert and Reporting System
 * Machine Learning-Based Attack Classification

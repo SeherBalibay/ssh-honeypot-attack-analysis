@@ -37,11 +37,6 @@ def initialize_database():
         )
     """)
 
-    try:
-        cursor.execute("ALTER TABLE attacks ADD COLUMN country TEXT")
-    except sqlite3.OperationalError:
-        pass
-
     connection.commit()
     connection.close()
 
@@ -61,7 +56,7 @@ def save_attack(ip_address, username, password):
     connection.commit()
     connection.close()
 
-    print(f"[+] Attack saved to database | Country: {country}")
+    return country
 
 
 def save_command(ip_address, command):
@@ -78,7 +73,8 @@ def save_command(ip_address, command):
     connection.commit()
     connection.close()
 
-    print(f"[+] Command saved: {command}")
+    print(f"[+] Command captured : {command}")
+    print("[+] Command logged successfully")
 
 
 def fake_shell(client, ip_address):
@@ -91,7 +87,6 @@ def fake_shell(client, ip_address):
         if not command:
             break
 
-        print(f"[COMMAND] {command}")
         save_command(ip_address, command)
 
         if command == "whoami":
@@ -131,10 +126,10 @@ print(f"[+] SSH Honeypot listening on {HOST}:{PORT}")
 
 while True:
     client, address = server.accept()
+    ip_address = address[0]
 
-    ip = address[0]
-
-    print(f"\n[ATTACK] Connection from {ip}")
+    print("\n[+] New SSH connection detected")
+    print(f"[+] Source IP        : {ip_address}")
 
     client.send(b"Username: ")
     username = client.recv(1024).decode(errors="ignore").strip()
@@ -142,11 +137,14 @@ while True:
     client.send(b"Password: ")
     password = client.recv(1024).decode(errors="ignore").strip()
 
-    print(f"[USERNAME] {username}")
-    print(f"[PASSWORD] {password}")
+    country = save_attack(ip_address, username, password)
 
-    save_attack(ip, username, password)
+    print(f"[+] Username captured: {username}")
+    print(f"[+] Password captured: {password}")
+    print(f"[+] Country detected : {country}")
+    print("[+] Credentials logged successfully")
+    print("[+] Fake shell session started\n")
 
-    fake_shell(client, ip)
+    fake_shell(client, ip_address)
 
     client.close()
